@@ -1,8 +1,13 @@
 import * as React from "react";
 import axios from "axios";
+import Modal from "./Components/Modal";
 
 function App() {
+  const [showModal, setShowModal] = React.useState(false);
   const [image, setImage] = React.useState(null);
+  const [detectedImage, setDetectedImage] = React.useState("");
+  const [detectedInfo, setDetectedInfo] = React.useState({});
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -22,7 +27,10 @@ function App() {
         "http://localhost:5000/detect",
         formData,
       );
-      console.log(response.data);
+      setDetectedImage("data:image/jpeg;base64," + response.data.image);
+      setDetectedInfo(response.data.fruits);
+      console.log(response.data.fruits);
+      setShowModal(true);
     } catch (error) {
       console.error(error);
     }
@@ -35,18 +43,20 @@ function App() {
       <form
         onSubmit={handlerSubmit}
         method="post"
-        className="m-4 flex flex-row items-center justify-center space-x-4"
+        className="m-4 flex flex-row items-end justify-center space-x-4"
       >
         {image && (
           <img src={image} alt="image-of-fruit" className="size-80 rounded" />
         )}
         <div className="flex flex-col space-y-2">
-          <button
-            type="submit"
-            className="rounded-md border-2 border-black bg-green-300 p-2 text-xs text-black transition-colors duration-200 hover:bg-green-600 hover:text-white"
-          >
-            Detect
-          </button>
+          {image !== null && (
+            <button
+              type="submit"
+              className="rounded-md border-2 border-black bg-green-300 p-2 text-xs text-black transition-colors duration-500 hover:bg-green-600 hover:text-white"
+            >
+              Detect
+            </button>
+          )}
           <input
             type="file"
             id="imageFile"
@@ -57,12 +67,21 @@ function App() {
           />
           <label
             htmlFor="imageFile"
-            className="cursor-pointer rounded border-2 border-black p-2 text-xs text-black transition-colors duration-200 hover:bg-blue-600 hover:text-white"
+            className="cursor-pointer rounded-md border-2 border-black p-2 text-xs text-black transition-colors duration-500 hover:bg-blue-600 hover:text-white"
           >
             Upload Image
           </label>
         </div>
       </form>
+      <div className="flex h-screen flex-col items-center">
+        {showModal && (
+          <Modal
+            onClose={() => setShowModal(false)}
+            detectedImage={detectedImage}
+            detectedInfo={detectedInfo}
+          ></Modal>
+        )}
+      </div>
     </>
   );
 }
