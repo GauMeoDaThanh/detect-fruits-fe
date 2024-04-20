@@ -15,10 +15,11 @@ function App() {
     setUseWebcam(!useWebcam);
     setImage(null);
   };
-  const handleWebcamOff = () => {
-    setUseWebcam(false);
-  };
+  // const handleWebcamOff = () => {
+  //   setUseWebcam(false);
+  // };
   const handleImageChange = (e) => {
+    setUseWebcam(false);
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -118,7 +119,6 @@ function App() {
             id="imageFile"
             style={{ display: "none" }}
             onChange={handleImageChange}
-            onClick={handleWebcamOff}
             accept="image/*"
             name="file"
           />
