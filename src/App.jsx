@@ -10,14 +10,13 @@ function App() {
   const [detectedImage, setDetectedImage] = React.useState("");
   const [detectedInfo, setDetectedInfo] = React.useState({});
   const webcamRef = React.useRef(null);
+  const fileRef = React.useRef(null);
 
   const handleWebcam = () => {
     setUseWebcam(!useWebcam);
+    fileRef.current.value = "";
     setImage(null);
   };
-  // const handleWebcamOff = () => {
-  //   setUseWebcam(false);
-  // };
   const handleImageChange = (e) => {
     setUseWebcam(false);
     const file = e.target.files[0];
@@ -49,13 +48,18 @@ function App() {
     formData.append("image", blob, "image.jpg");
     try {
       const response = await axios.post(
-        "http://192.168.1.9:5000/detect",
+        "https://cloud-server-detect.onrender.com/detect",
         formData,
       );
-      setDetectedImage("data:image/jpeg;base64," + response.data.image);
-      setDetectedInfo(response.data.fruits);
-      console.log(response.data.fruits);
-      setShowModal(true);
+      console.log(response.data);
+      if (!Object.prototype.hasOwnProperty.call(response.data, "failed")) {
+        setDetectedImage("data:image/jpeg;base64," + response.data.image);
+        setDetectedInfo(response.data.fruits);
+        console.log(response.data.fruits);
+        setShowModal(true);
+      } else {
+        alert(response.data.failed);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -77,6 +81,7 @@ function App() {
             ref={webcamRef}
             screenshotQuality={1}
             className="rounded"
+            screenshotFormat="image/jpeg"
           ></Webcam>
         )}
         {image && (
@@ -121,6 +126,7 @@ function App() {
             onChange={handleImageChange}
             accept="image/*"
             name="file"
+            ref={fileRef}
           />
           <label
             htmlFor="imageFile"
