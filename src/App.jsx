@@ -48,7 +48,7 @@ function App() {
     formData.append("image", blob, "image.jpg");
     try {
       const response = await axios.post(
-        "https://cloud-server-detect.onrender.com/detect",
+        "http://192.168.1.9:5000/detect",
         formData,
       );
       console.log(response.data);
@@ -64,6 +64,9 @@ function App() {
       console.error(error);
     }
   };
+  React.useEffect(() => {
+    document.body.style.overflow = "hidden";
+  }, []);
   return (
     <>
       <h1 className="mx-96 bg-gradient-to-r from-red-400 to-blue-500  bg-clip-text text-center text-3xl font-bold text-transparent">
@@ -94,7 +97,7 @@ function App() {
             height={640}
           />
         )}
-        <div className="flex flex-col space-y-2">
+        <div className="mt-auto flex flex-col space-y-2">
           {image !== null && (
             <button
               type="submit"
