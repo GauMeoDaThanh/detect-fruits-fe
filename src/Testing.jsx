@@ -46,14 +46,14 @@ const Testing = () => {
             alt="image-of-fruit"
             className="rounded object-cover"
             name="image"
-            height={860}
-            width={860}
+            height={640}
+            width={640}
           />
         )}
         {useWebcam && (
           <Webcam
-            height={860}
-            width={860}
+            height={640}
+            width={640}
             className=" rounded object-cover"
             ref={webcamRef}
           />
