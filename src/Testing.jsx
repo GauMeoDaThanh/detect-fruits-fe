@@ -54,13 +54,13 @@ const Testing = () => {
             ref={webcamRef}
           />
         )}
+        <button
+          className="mb-3 ml-5 rounded-md border-2 border-black bg-blue-300 px-6 py-3 text-xs font-bold text-black transition-colors duration-500 hover:bg-blue-600 hover:text-white"
+          onClick={capture}
+        >
+          Detect
+        </button>
       </div>
-      <button
-        className="mb-3 rounded-md border-2 border-black bg-blue-300 px-6 py-3 text-xs font-bold text-black transition-colors duration-500 hover:bg-blue-600 hover:text-white"
-        onClick={capture}
-      >
-        Detect
-      </button>
     </div>
   );
 };
