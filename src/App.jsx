@@ -26,43 +26,47 @@ function App() {
     };
     reader.readAsDataURL(file);
   };
-  const capture = React.useCallback(() => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    setUseWebcam(false);
-    setImage(imageSrc);
-  }, [webcamRef]);
+  // const capture = React.useCallback(async () => {
+  //   const imageSrc = webcamRef.current.getScreenshot();
+  //   setUseWebcam(false);
+  //   setImage(imageSrc);
+  // }, [webcamRef]);
+
+  // Neeeded
   const handlerSubmit = async (e) => {
     e.preventDefault();
+    const imageSrc = webcamRef.current.getScreenshot();
+    setImage(imageSrc);
     if (image === null) return;
 
-    const byteString = atob(image.split(",")[1]);
-    const mimeString = image.split(",")[0].split(":")[1].split(";")[0];
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    const blob = new Blob([ab], { type: mimeString });
+    // const byteString = atob(image.split(",")[1]);
+    // const mimeString = image.split(",")[0].split(":")[1].split(";")[0];
+    // const ab = new ArrayBuffer(byteString.length);
+    // const ia = new Uint8Array(ab);
+    // for (let i = 0; i < byteString.length; i++) {
+    //   ia[i] = byteString.charCodeAt(i);
+    // }
+    // const blob = new Blob([ab], { type: mimeString });
 
-    const formData = new FormData(e.target);
-    formData.append("image", blob, "image.jpg");
-    try {
-      const response = await axios.post(
-        "http://192.168.1.9:5000/detect",
-        formData,
-      );
-      console.log(response.data);
-      if (!Object.prototype.hasOwnProperty.call(response.data, "failed")) {
-        setDetectedImage("data:image/jpeg;base64," + response.data.image);
-        setDetectedInfo(response.data.fruits);
-        console.log(response.data.fruits);
-        setShowModal(true);
-      } else {
-        alert(response.data.failed);
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    // const formData = new FormData(e.target);
+    // formData.append("image", blob, "image.jpg");
+    // try {
+    //   const response = await axios.post(
+    //     "http://192.168.1.9:5000/detect",
+    //     formData,
+    //   );
+    //   console.log(response.data);
+    //   if (!Object.prototype.hasOwnProperty.call(response.data, "failed")) {
+    //     setDetectedImage("data:image/jpeg;base64," + response.data.image);
+    //     setDetectedInfo(response.data.fruits);
+    //     console.log(response.data.fruits);
+    //     setShowModal(true);
+    //   } else {
+    //     alert(response.data.failed);
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
   React.useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -106,7 +110,7 @@ function App() {
               Detect
             </button>
           )}
-          {useWebcam && (
+          {/* {useWebcam && (
             <button
               type="button"
               onClick={capture}
@@ -114,7 +118,7 @@ function App() {
             >
               Capture photo
             </button>
-          )}
+          )} */}
           <button
             type="button"
             onClick={handleWebcam}

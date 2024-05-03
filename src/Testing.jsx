@@ -1,6 +1,44 @@
 import Webcam from "react-webcam";
-import Loader from "./Components/Loader";
+// import Loader from "./Components/Loader";
+import axios from "axios";
 import * as React from "react";
+
+const convertBlob = (image) => {
+  console.log(image);
+  const byteString = atob(image.split(",")[1]);
+  const mimeString = image.split(",")[0].split(":")[1].split(";")[0];
+  const ab = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(ab);
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  const blob = new Blob([ab], { type: mimeString });
+  console.log("blob", blob);
+  return blob;
+};
+
+const convertAndSendImageForDetection = async (imageSrc) => {
+  const blob = convertBlob(imageSrc);
+  const formData = new FormData();
+  formData.append("image", blob, "image.jpg");
+  console.log("formData", formData);
+  try {
+    // const response = await axios.post("http://localhost:5000/detect", formData);
+    const response = await axios.post(
+      "https://cloud-server-detect.onrender.com/detect",
+      formData,
+    );
+    console.log(response.data);
+    if (!Object.prototype.hasOwnProperty.call(response.data, "failed")) {
+      console.log(response.data.fruits);
+      return response.data;
+    } else {
+      alert(response.data.failed);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 const Testing = () => {
   const webcamRef = React.useRef(null);
@@ -8,13 +46,20 @@ const Testing = () => {
   const [useWebcam, setUseWebcam] = React.useState(true);
   const [isShowLoader, setIsShowLoader] = React.useState(false);
   const [isShowModal, setIsShowModal] = React.useState(false);
+  const [modalInfo, setModalInfo] = React.useState(null);
   const modalRef = React.useRef(null);
 
-  const capture = React.useCallback(() => {
+  const capture = React.useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
+    setModalInfo(null);
     setUseWebcam(false);
     setIsShowModal(true);
     setImage(imageSrc);
+    setIsShowLoader(true);
+
+    const detectedData = await convertAndSendImageForDetection(imageSrc);
+    setModalInfo(detectedData);
+    setIsShowLoader(false);
   }, [webcamRef]);
 
   const closeModal = (e) => {
@@ -37,7 +82,29 @@ const Testing = () => {
             onClick={closeModal}
             ref={modalRef}
           >
-            <Loader />
+            {isShowLoader ? (
+              <img src="./Loader.svg" alt="loading" className="h-auto w-auto" />
+            ) : null}
+            {modalInfo != null ? (
+              <div className="flex flex-row rounded-lg bg-white p-5">
+                {/* <h1 className="text-lg font-bold">{ModalInfo.fruits}</h1> */}
+                <img
+                  src={"data:image/jpeg;base64," + modalInfo.image}
+                  alt="image-of-fruit"
+                  className="h-4/5 w-4/5 rounded object-cover"
+                  name="image"
+                />
+                {Object.entries(modalInfo.fruits).map(
+                  ([fruit, count], index) => {
+                    return (
+                      <div key={index}>
+                        <h1 className="ml-5 text-lg font-bold">{`${fruit}: ${count}`}</h1>
+                      </div>
+                    );
+                  },
+                )}
+              </div>
+            ) : null}
           </div>
         )}
         {image && (
