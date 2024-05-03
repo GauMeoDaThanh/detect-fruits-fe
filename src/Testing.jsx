@@ -51,6 +51,7 @@ const Testing = () => {
 
   const capture = React.useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
+    if (imageSrc === null) return;
     setModalInfo(null);
     setUseWebcam(false);
     setIsShowModal(true);
@@ -87,22 +88,23 @@ const Testing = () => {
             ) : null}
             {modalInfo != null ? (
               <div className="flex flex-row rounded-lg bg-white p-5">
-                {/* <h1 className="text-lg font-bold">{ModalInfo.fruits}</h1> */}
                 <img
                   src={"data:image/jpeg;base64," + modalInfo.image}
                   alt="image-of-fruit"
                   className="h-4/5 w-4/5 rounded object-cover"
                   name="image"
                 />
-                {Object.entries(modalInfo.fruits).map(
-                  ([fruit, count], index) => {
-                    return (
-                      <div key={index}>
-                        <h1 className="ml-5 text-lg font-bold">{`${fruit}: ${count}`}</h1>
-                      </div>
-                    );
-                  },
-                )}
+                <div className="flex flex-col p-0 ">
+                  {Object.entries(modalInfo.fruits).map(
+                    ([fruit, count], index) => {
+                      return (
+                        <div key={index}>
+                          <h1 className="ml-5 text-base font-bold">{`${fruit}: ${count}`}</h1>
+                        </div>
+                      );
+                    },
+                  )}
+                </div>
               </div>
             ) : null}
           </div>
