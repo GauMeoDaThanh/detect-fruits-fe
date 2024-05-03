@@ -44,17 +44,13 @@ const Testing = () => {
           <img
             src={image}
             alt="image-of-fruit"
-            className="rounded object-cover"
+            className="h-4/5 w-4/5 rounded object-cover"
             name="image"
-            height={640}
-            width={640}
           />
         )}
         {useWebcam && (
           <Webcam
-            height={640}
-            width={640}
-            className=" rounded object-cover"
+            className=" h-4/5 w-4/5 rounded object-cover"
             ref={webcamRef}
           />
         )}
