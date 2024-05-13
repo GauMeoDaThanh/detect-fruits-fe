@@ -73,7 +73,7 @@ const Testing = () => {
 
   return (
     <div className="flex h-screen flex-col items-center justify-between">
-      <h1 className="bg-gradient-to-r from-red-400 to-blue-500 bg-clip-text text-center text-3xl font-bold text-transparent">
+      <h1 className="bg-gradient-to-r from-green-400 to-slate-500 bg-clip-text text-center text-3xl font-bold text-transparent">
         Detect Fruit
       </h1>
       <div className="flex flex-grow items-center justify-center">
@@ -124,7 +124,7 @@ const Testing = () => {
           />
         )}
         <button
-          className="mb-3 ml-5 rounded-md border-2 border-black bg-blue-300 px-6 py-3 text-xs font-bold text-black transition-colors duration-500 hover:bg-blue-600 hover:text-white"
+          className="mb-3 ml-5 rounded-md border-2 border-black bg-green-300 px-6 py-3 text-xs font-bold text-black transition-colors duration-500 hover:bg-green-600 hover:text-white"
           onClick={capture}
         >
           Detect
