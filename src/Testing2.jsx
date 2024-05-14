@@ -100,7 +100,7 @@ const Testing = () => {
             <img
               src={image}
               alt="image-of-fruit"
-              className="h-3/4 w-3/4 rounded object-cover"
+              className="h-650 w-650 rounded object-cover"
               name="image"
             />
           )}
@@ -113,11 +113,11 @@ const Testing = () => {
           ) : null}
           {useWebcam && (
             <Webcam
-              className=" h-3/4 w-3/4 rounded object-cover"
+              className=" h-650 w-650 rounded object-cover"
               ref={webcamRef}
             />
           )}
-          <div className="flex h-3/4 flex-col ">
+          <div className="h-650 flex flex-col ">
             {modalInfo != null ? (
               <div className="ml-5 flex items-center justify-center">
                 <div className="mr-4 flex flex-col items-center">
