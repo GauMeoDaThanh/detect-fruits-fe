@@ -91,7 +91,7 @@ const Testing = () => {
                 <img
                   src={"data:image/jpeg;base64," + modalInfo.image}
                   alt="image-of-fruit"
-                  className="h-3/4 w-3/4 rounded object-cover"
+                  className="h-3/5 w-3/5 rounded object-cover"
                   name="image"
                 />
                 {/* <div className="flex flex-col p-0 ">
@@ -105,7 +105,7 @@ const Testing = () => {
                     },
                   )}
                 </div> */}
-                <table className="table-auto border-collapse border-2 border-green-500">
+                <table className="ml-2 w-1/2 table-auto border-collapse border-2 border-green-500">
                   <thead>
                     <tr className="bg-green-500 text-white">
                       <th className="border-r border-black px-4 py-2">Fruit</th>
