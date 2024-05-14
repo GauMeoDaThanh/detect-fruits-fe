@@ -53,7 +53,7 @@ const Testing = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     if (imageSrc === null) return;
     setModalInfo(null);
-    setUseWebcam(false);
+    // setUseWebcam(false);
     setIsShowModal(true);
     setImage(imageSrc);
     setIsShowLoader(true);
@@ -91,10 +91,10 @@ const Testing = () => {
                 <img
                   src={"data:image/jpeg;base64," + modalInfo.image}
                   alt="image-of-fruit"
-                  className="h-4/5 w-4/5 rounded object-cover"
+                  className="h-3/4 w-3/4 rounded object-cover"
                   name="image"
                 />
-                <div className="flex flex-col p-0 ">
+                {/* <div className="flex flex-col p-0 ">
                   {Object.entries(modalInfo.fruits).map(
                     ([fruit, count], index) => {
                       return (
@@ -104,19 +104,44 @@ const Testing = () => {
                       );
                     },
                   )}
-                </div>
+                </div> */}
+                <table className="table-auto border-collapse border-2 border-green-500">
+                  <thead>
+                    <tr className="bg-green-500 text-white">
+                      <th className="border-r border-black px-4 py-2">Fruit</th>
+                      <th className="px-4 py-2">Quantity</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.entries(modalInfo.fruits).map(
+                      ([fruit, count], index) => {
+                        return (
+                          <tr
+                            key={index}
+                            className="border-b border-green-200 text-center"
+                          >
+                            <td className="border-r border-black px-4 py-2">
+                              {fruit}
+                            </td>
+                            <td className="px-4 py-2">{count}</td>
+                          </tr>
+                        );
+                      },
+                    )}
+                  </tbody>
+                </table>
               </div>
             ) : null}
           </div>
         )}
-        {image && (
+        {/* {image && (
           <img
             src={image}
             alt="image-of-fruit"
             className="h-4/5 w-4/5 rounded object-cover"
             name="image"
           />
-        )}
+        )} */}
         {useWebcam && (
           <Webcam
             className=" h-4/5 w-4/5 rounded object-cover"

@@ -6,6 +6,6 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Testing2 />
+    <Testing />
   </React.StrictMode>,
 );
