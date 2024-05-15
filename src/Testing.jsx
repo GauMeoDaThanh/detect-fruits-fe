@@ -74,12 +74,12 @@ const Testing = () => {
   return (
     <div className="flex h-screen flex-col items-center justify-between">
       <h1 className="bg-gradient-to-r from-green-400 to-slate-500 bg-clip-text text-center text-3xl font-bold text-transparent">
-        Detect Fruit
+        🍍🍎 Detect Fruit 🍉 🍇
       </h1>
-      <div className="flex flex-grow items-center justify-center">
+      <div className="flex flex-col items-center justify-center">
         {isShowModal && (
           <div
-            className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-80"
+            className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-80 pt-5"
             onClick={closeModal}
             ref={modalRef}
           >
@@ -87,29 +87,18 @@ const Testing = () => {
               <img src="./Loader.svg" alt="loading" className="h-auto w-auto" />
             ) : null}
             {modalInfo != null ? (
-              <div className="flex flex-row rounded-lg bg-white p-5">
+              <div className="flex h-auto w-auto flex-row items-start justify-center rounded-lg bg-white p-4">
                 <img
                   src={"data:image/jpeg;base64," + modalInfo.image}
                   alt="image-of-fruit"
-                  className="h-3/5 w-3/5 rounded object-cover"
+                  className="mb-2 mt-2 w-2/3 rounded object-cover"
                   name="image"
                 />
-                {/* <div className="flex flex-col p-0 ">
-                  {Object.entries(modalInfo.fruits).map(
-                    ([fruit, count], index) => {
-                      return (
-                        <div key={index}>
-                          <h1 className="ml-5 text-base font-bold">{`${fruit}: ${count}`}</h1>
-                        </div>
-                      );
-                    },
-                  )}
-                </div> */}
-                <table className="ml-2 w-1/2 table-auto border-collapse border-2 border-green-500">
+                <table className="ml-2 mt-2 table-auto border-collapse border-2 border-green-500 text-sm">
                   <thead>
                     <tr className="bg-green-500 text-white">
-                      <th className="border-r border-black px-4 py-2">Fruit</th>
-                      <th className="px-4 py-2">Quantity</th>
+                      <th className="border-r border-black">Fruit</th>
+                      <th className="">Quantity</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -120,10 +109,10 @@ const Testing = () => {
                             key={index}
                             className="border-b border-green-200 text-center"
                           >
-                            <td className="border-r border-black px-4 py-2">
+                            <td className="pr- border-r border-black">
                               {fruit}
                             </td>
-                            <td className="px-4 py-2">{count}</td>
+                            <td className="">{count}</td>
                           </tr>
                         );
                       },
@@ -134,22 +123,11 @@ const Testing = () => {
             ) : null}
           </div>
         )}
-        {/* {image && (
-          <img
-            src={image}
-            alt="image-of-fruit"
-            className="h-4/5 w-4/5 rounded object-cover"
-            name="image"
-          />
-        )} */}
         {useWebcam && (
-          <Webcam
-            className=" h-4/5 w-4/5 rounded object-cover"
-            ref={webcamRef}
-          />
+          <Webcam className="w-4/5 rounded object-cover" ref={webcamRef} />
         )}
         <button
-          className="mb-3 ml-5 rounded-md border-2 border-black bg-green-300 px-6 py-3 text-xs font-bold text-black transition-colors duration-500 hover:bg-green-600 hover:text-white"
+          className="b-3 ml-5 mt-2 rounded-md border-2 border-black bg-green-300 px-6 py-3 text-xs font-bold text-black transition-colors duration-500 hover:bg-green-600 hover:text-white"
           onClick={capture}
         >
           Detect
