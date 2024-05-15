@@ -76,66 +76,59 @@ const Testing = () => {
       <h1 className="bg-gradient-to-r from-green-400 to-slate-500 bg-clip-text text-center text-3xl font-bold text-transparent">
         🍍🍎 Detect Fruit 🍉 🍇
       </h1>
-      <div className="flex flex-col items-center justify-center">
-        {isShowModal && (
-          <div
-            className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-80 pt-5"
-            onClick={closeModal}
-            ref={modalRef}
-          >
-            {isShowLoader ? (
-              <img src="./Loader.svg" alt="loading" className="h-auto w-auto" />
-            ) : null}
-            {modalInfo != null ? (
-              <div className="flex h-auto w-auto flex-row items-start justify-center rounded-lg bg-white p-4">
-                <img
-                  src={"data:image/jpeg;base64," + modalInfo.image}
-                  alt="image-of-fruit"
-                  className="mb-2 mt-2 w-2/3 rounded object-cover"
-                  name="image"
-                />
-                <table className="ml-2 mt-2 table-auto border-collapse border-2 border-green-500 text-sm">
-                  <thead>
-                    <tr className="bg-green-500 text-white">
-                      <th className="border-r border-black">Fruit</th>
-                      <th className="">Quantity</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {Object.entries(modalInfo.fruits).map(
-                      ([fruit, count], index) => {
-                        return (
-                          <tr
-                            key={index}
-                            className="border-b border-green-200 text-center"
-                          >
-                            <td className="pr- border-r border-black">
-                              {fruit}
-                            </td>
-                            <td className="">{count}</td>
-                          </tr>
-                        );
-                      },
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            ) : null}
-          </div>
-        )}
-        {useWebcam && (
-          <Webcam
-            className="h-1/2 w-auto rounded object-cover"
-            ref={webcamRef}
-          />
-        )}
-        <button
-          className="b-3 ml-5 mt-2 rounded-md border-2 border-black bg-green-300 px-6 py-3 text-xs font-bold text-black transition-colors duration-500 hover:bg-green-600 hover:text-white"
-          onClick={capture}
+      {isShowModal && (
+        <div
+          className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-80 pt-5"
+          onClick={closeModal}
+          ref={modalRef}
         >
-          Detect
-        </button>
-      </div>
+          {isShowLoader ? (
+            <img src="./Loader.svg" alt="loading" className="h-auto w-auto" />
+          ) : null}
+          {modalInfo != null ? (
+            <div className="flex h-auto w-auto flex-row items-start justify-center rounded-lg bg-white p-4">
+              <img
+                src={"data:image/jpeg;base64," + modalInfo.image}
+                alt="image-of-fruit"
+                className="mb-2 mt-2 w-2/3 rounded object-cover"
+                name="image"
+              />
+              <table className="ml-2 mt-2 table-auto border-collapse border-2 border-green-500 text-sm">
+                <thead>
+                  <tr className="bg-green-500 text-white">
+                    <th className="border-r border-black">Fruit</th>
+                    <th className="">Quantity</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(modalInfo.fruits).map(
+                    ([fruit, count], index) => {
+                      return (
+                        <tr
+                          key={index}
+                          className="border-b border-green-200 text-center"
+                        >
+                          <td className="pr- border-r border-black">{fruit}</td>
+                          <td className="">{count}</td>
+                        </tr>
+                      );
+                    },
+                  )}
+                </tbody>
+              </table>
+            </div>
+          ) : null}
+        </div>
+      )}
+      {useWebcam && (
+        <Webcam className="h-3/4 w-auto rounded object-cover" ref={webcamRef} />
+      )}
+      <button
+        className="b-3 ml-5 mt-2 rounded-md border-2 border-black bg-green-300 px-6 py-3 text-xs font-bold text-black transition-colors duration-500 hover:bg-green-600 hover:text-white"
+        onClick={capture}
+      >
+        Detect
+      </button>
     </div>
   );
 };
