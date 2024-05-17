@@ -121,7 +121,13 @@ const Testing = () => {
         </div>
       )}
       {useWebcam && (
-        <Webcam className="h-3/4 w-auto rounded object-cover" ref={webcamRef} />
+        // <Webcam className="h-3/4 w-auto rounded object-cover" ref={webcamRef} />
+        <Webcam
+          className="rounded object-cover"
+          ref={webcamRef}
+          width={352}
+          height={180}
+        />
       )}
       <button
         className="b-3 ml-5 rounded-md border-2 border-black bg-green-300 px-6 py-3 text-xs font-bold text-black transition-colors duration-500 hover:bg-green-600 hover:text-white"
