@@ -68,10 +68,10 @@ const Testing = () => {
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
 
-      canvas.width = 1980;
-      canvas.height = 1080;
+      canvas.width = 1280;
+      canvas.height = 720;
 
-      ctx.drawImage(img, 0, 0, 1980, 1080);
+      ctx.drawImage(img, 0, 0, 1280, 720);
 
       const newImageSrc = canvas.toDataURL("image/jpeg", 1.0);
 
